@@ -105,7 +105,7 @@ def fitness(img_1, img_2):
             d_r = r1 - r2
             d_b = b1 - b2
             d_g = g1 - g2
-            pixel_fitness = math.sqrt(d_r ** 2 + d_g ** 2 + d_b ** 2)
+            pixel_fitness = math.sqrt(d_r ** 6 + d_g ** 4 + d_b ** 2)
             fitness += pixel_fitness
     return fitness
 
@@ -202,7 +202,7 @@ def main(argv):
     parent = dna.draw(show=False)
     fitness_parent = fitness(img, parent)
 
-    generations = pic_nr = 0
+    generations = 0
     while generations < 200:
         dna_mutated = dna.mutate()
         child = dna_mutated.draw(show=False)
@@ -213,10 +213,9 @@ def main(argv):
 
             generations += 1
             # print("generation {}".format(generations))
-            # if generations % 100 == 0:
-            #     print(u"showing generation {}".format(generations))
-            #     pic_nr += 1
-            dna.draw(show=False, save=True, generation=generations, folder_name=folder_name)
+            if generations % 10 == 0:
+                print(u"showing generation {}".format(generations))
+                dna.draw(show=False, save=True, generation=generations, folder_name=folder_name)
     sys.exit(0)
 
 
